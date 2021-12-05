@@ -41,7 +41,7 @@ function App() {
 
 
   return (
-    <div>
+    <div className='App'>
       <h1>Drinks left: {drinksLeft}</h1>
       {
         drinksLeft === 0
@@ -51,17 +51,17 @@ function App() {
           : <div>
             <Stack direction="row">
                 <Stack direction="column">
-                  <Paper onClick={() => getDrinks(drinkOne, 1)}  style={{width: 400, height: 500}}>
-                    <img  src={drinkOne.pic} alt='' />
+                  <Paper onClick={() => getDrinks(drinkOne, 1)}  style={{width: 200, height: 250}}>
+                    <img style={{height:'100%'}}  src={drinkOne.pic} alt='' />
                     </Paper>
-                    <h1 style={{maxWidth: 400}}>{drinkOne.name}</h1>
+                    <h1 style={{maxWidth: 180}}>{drinkOne.name}</h1>
                   
                 </Stack>
                 <Stack direction="column">
-                  <Paper  onClick={() => getDrinks(drinkTwo, 2)} style={{width: 400, height: 500}}>
-                    <img  src={drinkTwo.pic} alt='' />
+                  <Paper  onClick={() => getDrinks(drinkTwo, 2)} style={{width: 200, height: 250}}>
+                    <img style={{height:'100%'}} src={drinkTwo.pic} alt='' />
                     </Paper>
-                    <h1 style={{maxWidth: 400}}>{drinkTwo.name}</h1>
+                    <h1 style={{maxWidth: 180}}>{drinkTwo.name}</h1>
                   
                 </Stack>
               </Stack>
