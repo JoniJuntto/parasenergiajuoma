@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import logo from '../assets/logo.png'
+import { db } from '../firebase';
+import {docRef, setDoc, doc, getDoc} from '@firebase/firestore';
 
 function MainGame() {
 
@@ -40,6 +42,33 @@ function MainGame() {
         setDrinkOne(fallback);
     }
 
+    const handleSubmitData = async () => {
+        const docRef = doc(db, "likes", "favorites");
+        const docSnap = await getDoc(docRef);
+      
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            handleSubmit(docSnap.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            alert('EI KÄYTTÄJÄÄ');
+        }
+      
+      }
+
+    const handleSubmit = async (data) =>{
+        console.log(data);
+        const docRef = doc(db, "likes", "favorites");
+              const payload = {
+                  liked: [
+                    ...data.liked, winnerFinal.name
+                  ]
+              };
+              console.log(payload, docRef)
+              await setDoc(docRef, payload);
+      }
+
 
 
 
@@ -50,8 +79,9 @@ function MainGame() {
                 drinksLeft === 0
                     ? <div>
                         <img alt='' src={logo}  style={{height: '10%'}}/>
-                        <h1 style={{color:'white'}}>Drinks left: {drinksLeft}</h1>
-                        <h1 style={{color:'white'}}>{`Your favorite drink is ${winnerFinal.name}`}</h1>
+                        <Typography variant='h4'style={{color:'white'}}>Drinks left: {drinksLeft}</Typography>
+                        <Typography style={{color:'white'}}>{`Your favorite drink is ${winnerFinal.name}`}</Typography>
+                        <Button onClick={handleSubmitData}>Submit your favorite</Button>
                     </div>
                     : <div >
                         <img alt='' src={logo} style={{height: '10%'}}/>
