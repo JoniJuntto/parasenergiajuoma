@@ -6,6 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import logo from '../assets/logo.png'
 import { db } from '../firebase';
 import {docRef, setDoc, doc, getDoc} from '@firebase/firestore';
+import { Link } from 'react-router-dom'
 
 function MainGame() {
 
@@ -81,7 +82,10 @@ function MainGame() {
                         <img alt='' src={logo}  style={{height: '10%'}}/>
                         <Typography variant='h4'style={{color:'white'}}>Drinks left: {drinksLeft}</Typography>
                         <Typography style={{color:'white'}}>{`Your favorite drink is ${winnerFinal.name}`}</Typography>
-                        <Button onClick={handleSubmitData}>Submit your favorite</Button>
+                        <Stack direction='column'>
+                            <Button onClick={handleSubmitData}>Submit your favorite</Button>
+                            <Button startIcon={<ArrowBackIcon />} component={Link} to="/" style={{marginTop: 80}} >Back to homepage</Button>
+                        </Stack>
                     </div>
                     : <div >
                         <img alt='' src={logo} style={{height: '10%'}}/>
